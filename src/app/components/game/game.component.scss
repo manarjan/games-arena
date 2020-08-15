@@ -1,0 +1,49 @@
+.game-card {
+  .game-title {
+    min-height: 100px;
+  }
+  .header-image {
+    background-image: url("../../../assets/controller.png");
+    background-size: cover;
+  }
+
+  .platform-icon {
+    font-size: larger;
+    margin: 5px;
+  }
+
+  .game-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .genres {
+      grid-column: 1/2;
+      grid-row: 1/2;
+    }
+    .rating {
+      grid-column: 2/3;
+      grid-row: 1 / span 2;
+      justify-self: flex-end;
+      .rating-meter {
+        &::after {
+          content: attr(data-rating);
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          font-size: xx-large;
+          font-weight: 700;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+    .editors-choice {
+      grid-column: 1/2;
+      grid-row: 2/3;
+      .success {
+        color: green;
+      }
+      .err {
+        color: red;
+      }
+    }
+  }
+}

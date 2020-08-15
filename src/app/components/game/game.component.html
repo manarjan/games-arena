@@ -1,0 +1,59 @@
+<mat-card class="game-card">
+  <mat-card-header class="game-title">
+    <div mat-card-avatar class="header-image"></div>
+    <mat-card-title>{{ game?.title }}</mat-card-title>
+    <mat-card-subtitle
+      class="cursor-pointer"
+      (click)="onPlatformSelect(game?.platform)"
+      >{{ game?.platform }}
+      <span [matTooltip]="game.platform">
+        <i
+          class="platform-icon"
+          *ngFor="let icon of PlatformIconMapping[game?.platform]"
+          [class]="icon"
+        ></i>
+      </span>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="game-info">
+    <div class="genres" *ngIf="game.genre">
+      <mat-chip-list>
+        <mat-chip
+          color="accent"
+          class="cursor-pointer"
+          selected
+          (click)="onGenreSelect(game?.genre)"
+          *ngFor="let genre of game?.genre.split(',')"
+          >{{ genre }}</mat-chip
+        >
+      </mat-chip-list>
+    </div>
+    <div class="rating">
+      <mat-progress-spinner
+        class="rating-meter"
+        color="primary"
+        diameter="80"
+        strokeWidth="5"
+        mode="determinate"
+        [value]="game?.score * 10"
+        [attr.data-rating]="game?.score"
+      >
+      </mat-progress-spinner>
+    </div>
+    <div class="editors-choice">
+      <mat-chip-list>
+        <mat-chip>
+          Editor's Choice&nbsp;
+          <i
+            class="fas fa-check-circle success"
+            *ngIf="game.editors_choice === 'Y'"
+          ></i>
+          <i
+            class="fas fa-times-circle err"
+            *ngIf="game.editors_choice === 'N'"
+          ></i>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </mat-card-content>
+</mat-card>

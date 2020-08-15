@@ -1,0 +1,94 @@
+<app-header></app-header>
+<form [formGroup]="fiterForm" (ngSubmit)="filterByTitle()">
+  <div class="grid-container layout">
+    <div class="grid-container inputs">
+      <mat-form-field>
+        <input
+          id="filter"
+          matInput
+          placeholder="Enter name and click search (Or click on platform/genre names to filter)"
+          formControlName="title"
+          [matAutocomplete]="autoComplete"
+        />
+        <mat-autocomplete #autoComplete="matAutocomplete"
+          ><mat-option
+            *ngFor="let game of autoCompleteFiltered$ | async"
+            [value]="game.title"
+          >
+            <div>{{ game.title }}</div>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="buttons">
+        <button mat-button type="button" (click)="onReset()">Clear</button>
+        <button
+          mat-stroked-button
+          type="button"
+          color="primary"
+          [matMenuTriggerFor]="sortMenu"
+        >
+          Sort
+        </button>
+        <mat-menu #sortMenu="matMenu">
+          <div mat-menu-item>
+            Title
+            <button
+              mat-icon-button
+              (click)="onSort('title', SortingDirection.ASC)"
+            >
+              <i class="fa fa-sort-amount-up-alt"></i>
+            </button>
+            <button
+              mat-icon-button
+              (click)="onSort('title', SortingDirection.DESC)"
+            >
+              <i class="fa fa-sort-amount-down-alt"></i>
+            </button>
+          </div>
+          <div mat-menu-item>
+            Rating
+            <button
+              mat-icon-button
+              (click)="onSort('score', SortingDirection.ASC)"
+            >
+              <i class="fa fa-sort-amount-up-alt"></i>
+            </button>
+            <button
+              mat-icon-button
+              (click)="onSort('score', SortingDirection.DESC)"
+            >
+              <i class="fa fa-sort-amount-down-alt"></i>
+            </button>
+          </div>
+          <div mat-menu-item>
+            Genre
+            <button
+              mat-icon-button
+              (click)="onSort('genre', SortingDirection.ASC)"
+            >
+              <i class="fa fa-sort-amount-up-alt"></i>
+            </button>
+            <button
+              mat-icon-button
+              (click)="onSort('genre', SortingDirection.DESC)"
+            >
+              <i class="fa fa-sort-amount-down-alt"></i>
+            </button>
+          </div>
+        </mat-menu>
+        <button mat-flat-button type="submit" color="primary">Search</button>
+      </div>
+    </div>
+    <div
+      class="grid-container games-container"
+      *ngIf="searched$ | async as games"
+    >
+      <app-game
+        (platformSelected)="filterByPlatform($event)"
+        (genreSelected)="filterByGenre($event)"
+        [game]="game"
+        *ngFor="let game of games"
+      ></app-game>
+    </div>
+  </div>
+</form>
