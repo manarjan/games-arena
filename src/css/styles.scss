@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+@import "theme";
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  font-family: "Montserrat" !important;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #ddd;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #666;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.bg-primary {
+  background-color: mat-color($primary);
+}
