@@ -15,7 +15,6 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     if (
-      (req.url.includes('documents') || req.url.includes('login')) &&
       req.method === 'POST'
     ) {
       return next.handle(req);
